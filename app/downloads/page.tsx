@@ -1,0 +1,8 @@
+import type { Metadata } from "next";
+import { SiteShell } from "../components/SiteShell";
+import { Breadcrumbs, Intro, PageHero } from "../components/Common";
+
+export const metadata: Metadata = { title: "Downloads | ANANTARA WORLD", description: "Access approved public brochures, plans, location information and statutory documents for ANANTARA WORLD.", alternates: { canonical: "/downloads" } };
+const docs=[["Project brochure","An approved public brochure will be available here."],["Floor plans","Approved 3 and 4-bedroom plans will be published here."],["Project profile","A concise approved project overview will be available here."],["Location map","A verified project location map will be available here."],["Approvals","Approved public statutory documents will be listed here."],["RERA certificate","The approved certificate will be published after legal review."]];
+export default function DownloadsPage(){return <SiteShell overlay><PageHero eyebrow="Downloads" title="Project information, kept in one place." copy="Only approved, public documents will be made available for download." image="living" /><Breadcrumbs items={[{label:"Home",href:"/"},{label:"Downloads"}]} /><section className="section-pad"><Intro number="01" eyebrow="Document library" title="Clear. Current. Approved." copy="These placeholders preserve the final document structure without publishing private or unapproved material." /><div className="downloads-list">{docs.map(([title,copy],i)=><article key={title}><span>{String(i+1).padStart(2,"0")}</span><div><h2>{title}</h2><p>{copy}</p></div><button disabled aria-disabled="true">Awaiting approval</button></article>)}</div></section></SiteShell>}
+
