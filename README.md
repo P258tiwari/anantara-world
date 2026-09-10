@@ -35,6 +35,7 @@ Every temporary reference image is centralized in `app/data.ts`. Replace its URL
 
 ```bash
 npm run build
+npm run typecheck
 npm run lint
 npm test
 ```

@@ -19,7 +19,7 @@ export function Footer() {
         <div><p className="footer-label">Information</p><Link href="/construction-updates">Updates</Link><Link href="/downloads">Downloads</Link><Link href="/legal-rera">Legal & RERA</Link><Link href="/privacy-policy">Privacy</Link></div>
         <div><p className="footer-label">Contact</p><a href={`tel:${contact.phoneHref}`}>{contact.phone}</a><a href={`mailto:${contact.email}`}>{contact.email}</a><p>{contact.address}</p></div>
       </div>
-      <div className="footer-base"><p>© {new Date().getFullYear()} Mahadev Developers. All rights reserved.</p><p>Images are temporary references and do not depict the actual project unless stated.</p></div>
+      <div className="footer-base"><p>© {new Date().getFullYear()} Mahadev Developers. All rights reserved.</p><p>Project visuals are artistic impressions. Final details may vary.</p></div>
     </footer>
   );
 }

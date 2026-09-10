@@ -13,7 +13,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Mahadev Developers" }],
   creator: "Mahadev Developers",
   keywords: ["ANANTARA WORLD", "Mahadev Developers", "premium residences Kanpur", "3 bedroom residence Kanpur", "4 bedroom residence Kanpur", "Ambedkar Puram Yojna"],
-  icons: { icon: "/og.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/favicon-32x32.png",
+    apple: "/apple-icon.png",
+  },
   openGraph: { type: "website", locale: "en_IN", siteName: "ANANTARA WORLD", title: "ANANTARA WORLD | Premium Living. Timeless Value.", description: "A considered world of architecture, landscape and family life in Kanpur.", images: [{ url: "/og.png", width: 1734, height: 907, alt: "ANANTARA WORLD — Premium Living. Timeless Value. Artistic impression." }] },
   twitter: { card: "summary_large_image", title: "ANANTARA WORLD | Premium Living. Timeless Value.", description: "A considered world of architecture, landscape and family life in Kanpur.", images: ["/og.png"] },
   category: "real estate",

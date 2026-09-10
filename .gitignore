@@ -20,9 +20,35 @@
 
 # misc
 .DS_Store
+Thumbs.db
 *.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.crt
+
+# editor / IDE
+.vscode/
+.idea/
+
+# caches / temporary and backup files
+/.cache/
+/.vite/
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# local databases and database dumps
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.sql.gz
 
 # debug
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -34,6 +60,9 @@ yarn-error.log*
 
 # workspace-local npm cache
 /.npm-cache/
+/.tmp/
+/tmp/
+*.tsbuildinfo
 
 # vercel
 .vercel

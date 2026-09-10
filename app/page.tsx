@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <SiteShell overlay>
       <section className="home-hero">
-        <img src={images.heroNight.src} srcSet={imageSrcSet(images.heroNight.src)} sizes="100vw" alt={images.heroNight.alt} fetchPriority="high" />
+        <img src={images.heroOverview.src} srcSet={imageSrcSet(images.heroOverview.src)} sizes="100vw" alt={images.heroOverview.alt} fetchPriority="high" />
         <div className="home-hero__veil" />
         <div className="home-hero__brand"><span>ANANTARA WORLD</span><span>by Mahadev Developers</span></div>
         <div className="home-hero__content">
@@ -27,7 +27,7 @@ export default function Home() {
           <div className="button-row"><Link className="button button--light" href="/anantara-world">Explore ANANTARA WORLD</Link><Link className="button button--ghost-light" href="/contact#visit">Schedule a private presentation</Link></div>
         </div>
         <a className="scroll-cue" href="#story"><span />Discover</a>
-        <p className="image-disclaimer">Temporary reference image. Does not depict the actual project.</p>
+        <p className="image-disclaimer">Project render</p>
       </section>
 
       <section id="story" className="brand-story section-pad">
@@ -68,8 +68,8 @@ export default function Home() {
       </section>
 
       <section className="residence-preview">
-        <EditorialImage image="living" />
-        <div className="residence-preview__content"><p className="eyebrow">The residences</p><h2>Homes shaped around light, privacy and ease.</h2><p>Premium 3-bedroom and 4-bedroom residences, with interior experiences imagined for gracious living and adaptable family routines.</p><div className="residence-types"><span>3-bedroom residences</span><span>4-bedroom residences</span></div><Link className="button button--light" href="/residences">Explore residences</Link></div>
+        <EditorialImage image="balcony" />
+        <div className="residence-preview__content"><p className="eyebrow">The residences</p><h2>Generous homes.<br />Thoughtfully planned.</h2><p>Premium 3-bedroom and 4-bedroom residences, with interior experiences imagined for gracious living and adaptable family routines.</p><div className="residence-types"><span>3-bedroom residences</span><span>4-bedroom residences</span></div><Link className="button button--light" href="/residences">Explore residences</Link></div>
       </section>
 
       <section className="infrastructure section-pad">
@@ -83,7 +83,7 @@ export default function Home() {
         <div className="location-preview__card"><p className="eyebrow">Ambedkar Puram Yojna · Kanpur</p><h2>Connected to the city. Composed as a world apart.</h2><p>Located in Awas Vikas, with access from the Panki–Kalyanpur Road area. Verified connectivity details will be published following final review.</p><Link className="text-link" href="/location">Explore the location</Link></div>
       </section>
 
-      <section className="home-gallery section-pad"><Intro number="05" eyebrow="A visual introduction" title="A glimpse of the life envisioned." copy="Reference imagery expresses the project’s intended atmosphere while official renders are prepared." /><GalleryGrid limit={6} /><Link className="text-link" href="/gallery">View the complete gallery</Link></section>
+      <section className="home-gallery section-pad"><Intro number="05" eyebrow="A visual introduction" title="A glimpse of the life envisioned." copy="Project renders present the architecture, landscape and amenities envisioned for ANANTARA WORLD." /><GalleryGrid limit={6} /><Link className="text-link" href="/gallery">View the complete gallery</Link></section>
 
       <section className="updates-preview section-pad"><Intro number="06" eyebrow="The latest" title="From ANANTARA WORLD." copy="Verified project news, construction notes and events will be published here." /><div className="updates-grid">{demoUpdates.map((item) => <article key={item.slug}><img src={images[item.image].src} srcSet={imageSrcSet(images[item.image].src)} sizes="(max-width: 768px) 100vw, 33vw" alt={images[item.image].alt} loading="lazy" decoding="async" /><p className="eyebrow">{item.type}</p><h3>{item.title}</h3><p>{item.summary}</p><Link className="text-link" href={`/news-and-events/${item.slug}`}>Read sample entry</Link></article>)}</div></section>
     </SiteShell>

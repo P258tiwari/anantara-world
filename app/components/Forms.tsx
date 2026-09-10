@@ -11,14 +11,18 @@ export function EnquiryForm({ compact = false, formType = "enquiry" }: { compact
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
+    if (status === "loading" || !form.reportValidity()) return;
     setStatus("loading");
     setMessage("");
-    const form = event.currentTarget;
     const values = Object.fromEntries(new FormData(form));
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 12000);
     try {
       const response = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({ ...values, formType, startedAt, pageUrl: window.location.href, utm: Object.fromEntries(new URLSearchParams(window.location.search)) }),
       });
       const result = await response.json() as { message?: string };
@@ -28,12 +32,14 @@ export function EnquiryForm({ compact = false, formType = "enquiry" }: { compact
       setMessage("Thank you. Our team will contact you shortly.");
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Something went wrong. Please try again.");
+      setMessage(error instanceof Error && error.name !== "AbortError" ? error.message : "The request timed out. Please try again.");
+    } finally {
+      window.clearTimeout(timeout);
     }
   }
 
   return (
-    <form className={`enquiry-form ${compact ? "enquiry-form--compact" : ""}`} onSubmit={handleSubmit} noValidate>
+    <form className={`enquiry-form ${compact ? "enquiry-form--compact" : ""}`} onSubmit={handleSubmit} noValidate aria-busy={status === "loading"}>
       <div className="honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
       <div className="field"><label htmlFor={`${formType}-name`}>Full name *</label><input id={`${formType}-name`} name="fullName" required minLength={2} autoComplete="name" /></div>
       <div className="field"><label htmlFor={`${formType}-phone`}>Phone *</label><input id={`${formType}-phone`} name="phone" required inputMode="tel" autoComplete="tel" pattern="[0-9+ ()-]{8,18}" /></div>
