@@ -90,7 +90,7 @@ test("enquiry API rejects hostile, malformed, invalid and oversized requests", a
 });
 
 test("production responses include baseline security headers", async () => {
-  const response = await request("/", {}, "https://anantara.world");
+  const response = await request("/", {}, "https://new.anantara.world");
   assert.equal(response.status, 200);
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   assert.equal(response.headers.get("x-frame-options"), "SAMEORIGIN");
@@ -101,11 +101,11 @@ test("production responses include baseline security headers", async () => {
 test("robots and sitemap expose the canonical production domain", async () => {
   const robots = await request("/robots.txt");
   assert.equal(robots.status, 200);
-  assert.match(await robots.text(), /https:\/\/anantara\.world\/sitemap\.xml/);
+  assert.match(await robots.text(), /https:\/\/new\.anantara\.world\/sitemap\.xml/);
   const sitemap = await request("/sitemap.xml");
   assert.equal(sitemap.status, 200);
   const xml = await sitemap.text();
-  assert.match(xml, /https:\/\/anantara\.world\//);
+  assert.match(xml, /https:\/\/new\.anantara\.world\//);
   assert.doesNotMatch(xml, /localhost|127\.0\.0\.1/);
 });
 test("indexable pages have unique titles, descriptions and canonical URLs", async () => {
@@ -117,6 +117,6 @@ test("indexable pages have unique titles, descriptions and canonical URLs", asyn
     assert.ok(!titles.has(title), `${path} duplicate title: ${title}`);
     titles.add(title);
     assert.match(html, /<meta name="description" content="[^"]+"/i, `${path} description`);
-    assert.match(html, new RegExp(`<link rel="canonical" href="https://anantara\\.world${path === "/" ? "" : path}"`), `${path} canonical`);
+    assert.match(html, new RegExp(`<link rel="canonical" href="https://new.anantara\\.world${path === "/" ? "" : path}"`), `${path} canonical`);
   }
 });
