@@ -1,0 +1,142 @@
+export const floorAreas = {
+  "A": {
+    "odd": [
+      [
+        956.7,
+        1386.62
+      ],
+      [
+        984.91,
+        1285.11
+      ],
+      [
+        959.29,
+        1386.62
+      ],
+      [
+        957.67,
+        1382.96
+      ],
+      [
+        983.51,
+        1281.45
+      ],
+      [
+        955.95,
+        1380.48
+      ]
+    ],
+    "even": [
+      [
+        956.7,
+        1319.67
+      ],
+      [
+        984.91,
+        1285.11
+      ],
+      [
+        959.29,
+        1319.67
+      ],
+      [
+        957.67,
+        1316.01
+      ],
+      [
+        983.51,
+        1281.45
+      ],
+      [
+        955.95,
+        1313.53
+      ]
+    ]
+  },
+  "B": {
+    "odd": [
+      [
+        1163.16,
+        1666.27
+      ],
+      [
+        1162.19,
+        1666.27
+      ],
+      [
+        1124.08,
+        1625.58
+      ],
+      [
+        1124.08,
+        1625.58
+      ],
+      [
+        1162.19,
+        1666.27
+      ],
+      [
+        1163.16,
+        1666.27
+      ]
+    ],
+    "even": [
+      [
+        1163.16,
+        1543.02
+      ],
+      [
+        1162.19,
+        1543.02
+      ],
+      [
+        1124.08,
+        1502.33
+      ],
+      [
+        1124.08,
+        1502.33
+      ],
+      [
+        1162.19,
+        1543.02
+      ],
+      [
+        1163.16,
+        1543.02
+      ]
+    ]
+  },
+  "C": {
+    "odd": [
+      [
+        1584.57,
+        2231.81
+      ],
+      [
+        1508.79,
+        2051.3
+      ],
+      [
+        1516.97,
+        2059.05
+      ]
+    ],
+    "even": [
+      [
+        1584.57,
+        2016.64
+      ],
+      [
+        1508.79,
+        1940.32
+      ],
+      [
+        1516.97,
+        1948.07
+      ]
+    ]
+  }
+} as const;
+
+export const planningDisclosure = "The brochure describes a proposed revision from 10 floors to 27 floors, with requisite approvals under process. Plans, areas, specifications and amenities are indicative and subject to revision and approval by the competent authorities. Refer to approved statutory and sales documents for final details.";

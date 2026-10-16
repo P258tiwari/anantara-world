@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { saveLeadToSheet } from "../../lib/lead-storage";
 
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 5;
@@ -65,22 +66,34 @@ export async function POST(request: NextRequest) {
   if (!startedAt || !Number.isFinite(startedAt) || Date.now() - startedAt < 1500) return json({ message: "Please review the form and try again." }, 400);
 
   const data = {
+    submissionId: clean(raw.submissionId, 36) || crypto.randomUUID(),
     fullName: clean(raw.fullName, 100), phone: clean(raw.phone, 30), email: clean(raw.email, 160), city: clean(raw.city, 100),
     interest: clean(raw.interest, 100), purpose: clean(raw.purpose, 30), contactTime: clean(raw.contactTime, 50), message: clean(raw.message, 1000),
     formType: clean(raw.formType, 30), pageUrl: clean(raw.pageUrl, 500), consent: clean(raw.consent, 10), utm: cleanUtm(raw.utm),
   };
+  if (!["enquiry", "visit", "campaign"].includes(data.formType) || !/^[a-f0-9-]{36}$/i.test(data.submissionId)) {
+    return json({ message: "Invalid enquiry form." }, 422);
+  }
   if (data.fullName.length < 2 || !/^[+0-9 ()-]{8,18}$/.test(data.phone) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) || data.consent !== "yes") {
     return json({ message: "Please complete all required fields correctly." }, 422);
+  }
+
+  const sheetUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+  let savedToSheet = false;
+  if (sheetUrl) {
+    try {
+      await saveLeadToSheet(data, sheetUrl, process.env.GOOGLE_SHEETS_WEBHOOK_SECRET || "");
+      savedToSheet = true;
+    } catch {
+      return json({ message: "We could not save your enquiry. Please try again or call us directly." }, 502);
+    }
   }
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;
   const from = process.env.CONTACT_FROM_EMAIL;
   if (!apiKey || !to || !from) {
-    if (process.env.NODE_ENV !== "production") {
-      console.info("ANANTARA enquiry received; email delivery is not configured in this environment.");
-      return json({ ok: true });
-    }
+    if (savedToSheet) return json({ ok: true });
     return json({ message: "Enquiry delivery is temporarily unavailable. Please call or email us directly." }, 503);
   }
 
@@ -88,13 +101,14 @@ export async function POST(request: NextRequest) {
   try {
     emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", "Idempotency-Key": data.submissionId },
       body: JSON.stringify({ from, to: [to], reply_to: data.email, subject: `ANANTARA WORLD ${data.formType || "enquiry"}: ${data.fullName}`, text: Object.entries(data).map(([key,value])=>`${key}: ${typeof value === "object" ? JSON.stringify(value) : value}`).join("\n") }),
       signal: AbortSignal.timeout(EMAIL_TIMEOUT_MS),
     });
   } catch {
+    if (savedToSheet) return json({ ok: true });
     return json({ message: "We could not send your enquiry. Please call or email us directly." }, 502);
   }
-  if (!emailResponse.ok) return json({ message: "We could not send your enquiry. Please call or email us directly." }, 502);
+  if (!emailResponse.ok && !savedToSheet) return json({ message: "We could not send your enquiry. Please call or email us directly." }, 502);
   return json({ ok: true });
 }

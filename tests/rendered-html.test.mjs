@@ -5,17 +5,11 @@ import test from "node:test";
 
 const staticRoutes = [
   "/", "/about-us", "/anantara-world", "/residences", "/amenities",
-  "/landscape", "/location", "/gallery", "/construction-updates",
-  "/news-and-events", "/media-coverage", "/downloads", "/contact",
+  "/landscape", "/location", "/gallery",
+  "/downloads", "/contact",
   "/campaign", "/legal-rera", "/privacy-policy", "/thank-you",
 ];
-const dynamicRoutes = [
-  "/news-and-events/project-planning-note",
-  "/news-and-events/community-design-preview",
-  "/news-and-events/private-presentation",
-  "/news-and-events/project-announcement-note",
-  "/media-coverage/sample-coverage",
-];
+const dynamicRoutes = [];
 
 let workerPromise;
 function getWorker() {
@@ -53,6 +47,10 @@ test("all rendered internal page links resolve", async () => {
     }
   }
   for (const href of links) {
+    if (href.endsWith(".pdf")) {
+      await access(resolve("public", "." + href));
+      continue;
+    }
     const response = await request(href);
     assert.notEqual(response.status, 404, href);
     assert.ok(response.status < 500, `${href}: ${response.status}`);
@@ -69,7 +67,7 @@ test("all rendered local images exist with case-correct paths", async () => {
 });
 
 test("unknown static and dynamic routes return the custom 404", async () => {
-  for (const path of ["/definitely-not-a-page", "/news-and-events/not-real", "/media-coverage/not-real"]) {
+  for (const path of ["/definitely-not-a-page", "/construction-updates", "/news-and-events", "/media-coverage", "/news-and-events/project-planning-note", "/media-coverage/sample-coverage", "/news-and-events/not-real", "/media-coverage/not-real"]) {
     const response = await request(path);
     assert.equal(response.status, 404, path);
     assert.match(await response.text(), /This horizon leads elsewhere/);
@@ -90,7 +88,7 @@ test("enquiry API rejects hostile, malformed, invalid and oversized requests", a
 });
 
 test("production responses include baseline security headers", async () => {
-  const response = await request("/", {}, "https://new.anantara.world");
+  const response = await request("/", {}, "https://www.anantara.world");
   assert.equal(response.status, 200);
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
   assert.equal(response.headers.get("x-frame-options"), "SAMEORIGIN");
@@ -101,11 +99,11 @@ test("production responses include baseline security headers", async () => {
 test("robots and sitemap expose the canonical production domain", async () => {
   const robots = await request("/robots.txt");
   assert.equal(robots.status, 200);
-  assert.match(await robots.text(), /https:\/\/new\.anantara\.world\/sitemap\.xml/);
+  assert.match(await robots.text(), /https:\/\/www\.anantara\.world\/sitemap\.xml/);
   const sitemap = await request("/sitemap.xml");
   assert.equal(sitemap.status, 200);
   const xml = await sitemap.text();
-  assert.match(xml, /https:\/\/new\.anantara\.world\//);
+  assert.match(xml, /https:\/\/www\.anantara\.world\//);
   assert.doesNotMatch(xml, /localhost|127\.0\.0\.1/);
 });
 test("indexable pages have unique titles, descriptions and canonical URLs", async () => {
@@ -117,6 +115,6 @@ test("indexable pages have unique titles, descriptions and canonical URLs", asyn
     assert.ok(!titles.has(title), `${path} duplicate title: ${title}`);
     titles.add(title);
     assert.match(html, /<meta name="description" content="[^"]+"/i, `${path} description`);
-    assert.match(html, new RegExp(`<link rel="canonical" href="https://new.anantara\\.world${path === "/" ? "" : path}"`), `${path} canonical`);
+    assert.match(html, new RegExp(`<link rel="canonical" href="https://www.anantara\\.world${path === "/" ? "" : path}"`), `${path} canonical`);
   }
 });

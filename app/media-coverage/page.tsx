@@ -1,7 +1,0 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { SiteShell } from "../components/SiteShell";
-import { Breadcrumbs, Intro, PageHero, Placeholder } from "../components/Common";
-
-export const metadata: Metadata = { title: "Media Coverage | ANANTARA WORLD", description: "Approved media coverage and publication proof for ANANTARA WORLD will be collected here.", alternates: { canonical: "/media-coverage" } };
-export default function MediaPage(){return <SiteShell overlay><PageHero eyebrow="Media coverage" title="The conversation around ANANTARA." copy="A considered archive for verified press coverage and publication proof." image="facade" /><Breadcrumbs items={[{label:"Home",href:"/"},{label:"Media coverage"}]} /><section className="section-pad"><Intro number="01" eyebrow="Press archive" title="Coverage will appear with verifiable proof." copy="No publication names, awards or quotes are invented. Approved coverage can be added with source links, dates, excerpts and uploaded proof." /><div className="placeholder-grid"><Placeholder title="Media article" copy="Publication, headline, date, approved excerpt, external source link and coverage proof." /><Placeholder title="Press release" copy="Approved release copy, issue date, spokesperson attribution and downloadable PDF." /><Placeholder title="Coverage proof" copy="Publication scan, screenshot or approved PDF attachment." /></div><Link className="text-link" href="/media-coverage/sample-coverage">View sample detail format</Link></section></SiteShell>}

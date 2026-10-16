@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -8,6 +8,7 @@ export function EnquiryForm({ compact = false, formType = "enquiry" }: { compact
   const [status, setStatus] = useState<FormStatus>("idle");
   const [message, setMessage] = useState("");
   const [startedAt] = useState(() => Date.now());
+  const submissionId = useRef<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -16,18 +17,20 @@ export function EnquiryForm({ compact = false, formType = "enquiry" }: { compact
     setStatus("loading");
     setMessage("");
     const values = Object.fromEntries(new FormData(form));
+    submissionId.current ??= crypto.randomUUID();
     const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 12000);
+    const timeout = window.setTimeout(() => controller.abort(), 25000);
     try {
       const response = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         signal: controller.signal,
-        body: JSON.stringify({ ...values, formType, startedAt, pageUrl: window.location.href, utm: Object.fromEntries(new URLSearchParams(window.location.search)) }),
+        body: JSON.stringify({ ...values, submissionId: submissionId.current, formType, startedAt, pageUrl: window.location.href, utm: Object.fromEntries(new URLSearchParams(window.location.search)) }),
       });
       const result = await response.json() as { message?: string };
       if (!response.ok) throw new Error(result.message || "Unable to submit your enquiry.");
       form.reset();
+      submissionId.current = null;
       setStatus("success");
       setMessage("Thank you. Our team will contact you shortly.");
     } catch (error) {

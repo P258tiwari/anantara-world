@@ -1,5 +1,7 @@
 "use client";
 
+import { brochure } from "../brochure-data";
+
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Brand } from "./Brand";
@@ -52,10 +54,10 @@ export function Header({ overlay = false }: { overlay?: boolean }) {
       <header className={`site-header ${overlay ? "site-header--overlay" : ""} ${scrolled ? "is-scrolled" : ""}`}>
         <Brand compact />
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.slice(1, 8).map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+          {navItems.filter(([, href]) => href !== "/" && href !== "/contact").map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
         </nav>
         <div className="header-actions">
-          <Link className="text-link desktop-only" href="/downloads">Brochure</Link>
+          <a className="text-link desktop-only" href={brochure.viewerUrl} target="_blank" rel="noopener noreferrer">Brochure</a>
           <Link className="button button--small" href="/contact#enquire">Enquire</Link>
           <button ref={menuButtonRef} className="menu-button" type="button" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="mobile-navigation">
             <span /> <span />
@@ -74,6 +76,7 @@ export function Header({ overlay = false }: { overlay?: boolean }) {
               <span>{String(index + 1).padStart(2, "0")}</span>{label}
             </Link>
           ))}
+          <a href={brochure.viewerUrl} target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}><span>10</span>Brochure</a>
         </nav>
         <div className="mobile-menu__footer">
           <p>Premium living. Timeless value.</p>

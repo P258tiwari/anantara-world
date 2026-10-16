@@ -1,0 +1,40 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "id": "library",
+      "output": "/brochure-images/home-gallery-library-16x9.png",
+      "prompt": "Edit target: supplied library architectural render. Produce a single landscape 16:9 image for a website gallery. Outpaint the canvas only as needed to achieve 16:9 while retaining the entire original scene without cropping, stretching or rearranging it. For portrait/narrow references extend the room naturally on both sides; continue the existing walls, ceiling and floor using the same perspective and materials. Preserve original architecture, furnishings, people, colors, lighting and all design details faithfully. If already 16:9 retain its composition with minimal changes. No new amenities, no new people, no added text, no borders, no collage. Photorealistic architectural visualization."
+    },
+    {
+      "id": "reception",
+      "output": "/brochure-images/home-gallery-reception-16x9.png",
+      "prompt": "Edit target: supplied reception architectural render. Produce a single landscape 16:9 image for a website gallery. Outpaint the canvas only as needed to achieve 16:9 while retaining the entire original scene without cropping, stretching or rearranging it. For portrait/narrow references extend the room naturally on both sides; continue the existing walls, ceiling and floor using the same perspective and materials. Preserve original architecture, furnishings, people, colors, lighting and all design details faithfully. If already 16:9 retain its composition with minimal changes. No new amenities, no new people, no added text, no borders, no collage. Photorealistic architectural visualization."
+    },
+    {
+      "id": "green",
+      "output": "/brochure-images/home-gallery-green-16x9.png",
+      "prompt": "Edit target: supplied green architectural render. Produce a single landscape 16:9 image for a website gallery. Outpaint the canvas only as needed to achieve 16:9 while retaining the entire original scene without cropping, stretching or rearranging it. For portrait/narrow references extend the room naturally on both sides; continue the existing walls, ceiling and floor using the same perspective and materials. Preserve original architecture, furnishings, people, colors, lighting and all design details faithfully. If already 16:9 retain its composition with minimal changes. No new amenities, no new people, no added text, no borders, no collage. Photorealistic architectural visualization."
+    },
+    {
+      "id": "sports",
+      "output": "/brochure-images/home-gallery-sports-16x9.png",
+      "prompt": "Edit target: supplied sports architectural render. Produce a single landscape 16:9 image for a website gallery. Outpaint the canvas only as needed to achieve 16:9 while retaining the entire original scene without cropping, stretching or rearranging it. For portrait/narrow references extend the room naturally on both sides; continue the existing walls, ceiling and floor using the same perspective and materials. Preserve original architecture, furnishings, people, colors, lighting and all design details faithfully. If already 16:9 retain its composition with minimal changes. No new amenities, no new people, no added text, no borders, no collage. Photorealistic architectural visualization."
+    },
+    {
+      "id": "pool",
+      "output": "/brochure-images/home-gallery-pool-16x9.png",
+      "prompt": "Edit target: supplied pool architectural render. Produce a single landscape 16:9 image for a website gallery. Outpaint the canvas only as needed to achieve 16:9 while retaining the entire original scene without cropping, stretching or rearranging it. For portrait/narrow references extend the room naturally on both sides; continue the existing walls, ceiling and floor using the same perspective and materials. Preserve original architecture, furnishings, people, colors, lighting and all design details faithfully. If already 16:9 retain its composition with minimal changes. No new amenities, no new people, no added text, no borders, no collage. Photorealistic architectural visualization."
+    },
+    {
+      "id": "foyer",
+      "output": "/brochure-images/home-gallery-foyer-16x9.png",
+      "prompt": "Edit target: supplied foyer architectural render. Produce a single landscape 16:9 image for a website gallery. Outpaint the canvas only as needed to achieve 16:9 while retaining the entire original scene without cropping, stretching or rearranging it. For portrait/narrow references extend the room naturally on both sides; continue the existing walls, ceiling and floor using the same perspective and materials. Preserve original architecture, furnishings, people, colors, lighting and all design details faithfully. If already 16:9 retain its composition with minimal changes. No new amenities, no new people, no added text, no borders, no collage. Photorealistic architectural visualization."
+    },
+    {
+      "id": "living",
+      "output": "/brochure-images/home-gallery-living-16x9.png",
+      "prompt": "Edit target: supplied living architectural render. Produce a single landscape 16:9 image for a website gallery. Outpaint the canvas only as needed to achieve 16:9 while retaining the entire original scene without cropping, stretching or rearranging it. For portrait/narrow references extend the room naturally on both sides; continue the existing walls, ceiling and floor using the same perspective and materials. Preserve original architecture, furnishings, people, colors, lighting and all design details faithfully. If already 16:9 retain its composition with minimal changes. No new amenities, no new people, no added text, no borders, no collage. Photorealistic architectural visualization."
+    }
+  ]
+}
